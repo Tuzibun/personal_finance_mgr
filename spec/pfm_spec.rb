@@ -1,4 +1,5 @@
 require 'rspec'
+require_relative 'spec_helper'
 require_relative '../lib/pfm'
 
 describe Account do
@@ -25,6 +26,7 @@ describe Account do
 			expect(account.transactions.count).to eq(1)
 		end
 	end
+end
 
 	# describe "#list_accounts" do
 	# end
@@ -41,11 +43,9 @@ describe Account do
 	# describe "#view_account_details" do
 	# end
 
-end
-
 describe Transaction do
 	transaction = Transaction.new("31 Mar 15", "Gwen Savings", "Food", "Shake Shack", 10, "debit")
-	it "has a date"
+	it "has a date" do
 		expect(transaction.date.class).to be(String)
 	end
 	
