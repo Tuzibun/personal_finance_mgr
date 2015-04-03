@@ -64,8 +64,8 @@ describe Transaction do
 		expect(transaction.amount.class).to be(integer)
 	end
 
-	it "has a type" do
-		expect(transaction.types).to include(transaction.type)
+	it "has a kind" do
+		expect(transaction.kinds).to include(transaction.kind)
 	end
 
 	# describe "a newly instantiated transaction" do
@@ -74,8 +74,8 @@ describe Transaction do
 	# 	it "has one category"
 	# 	it "has one payee"
 	# 	it "has one amount"
-	# 	it "has one type"
-	# 		expect(type).to be(debit || credit)
+	# 	it "has one kind"
+	# 		expect(kind).to be(debit || credit)
 	# end
 
 	# describe "#create_transaction" do
