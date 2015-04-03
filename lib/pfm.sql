@@ -4,7 +4,7 @@ DROP TABLE IF EXISTS transactions;
 CREATE TABLE accounts (
 	id serial PRIMARY KEY, 
 	name varchar(25) NOT NULL,
-	balance decimal(10,2) NOT NULL
+	balance MONEY NOT NULL
 );
 
 CREATE TABLE transactions (

@@ -22,3 +22,8 @@ Please follow these steps to set up your program:
 9)  If you wish to seed your program to test it, open pfm.rb 
 	in your text editor.  Locate and un-comment line 7.
 
+
+TEACHERS:
+Here is my Trello link: https://trello.com/b/diLVekLX/project-1
+My ERD is in the pfm folder
+
