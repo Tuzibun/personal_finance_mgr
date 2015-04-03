@@ -1,16 +1,19 @@
+# These are all the files referenced by this controller file
 require 'pry'
 require 'table_print'
 require 'active_record'
 require_relative "account.rb"
 require_relative "transaction.rb"
+#require_relative "seeds.rb"
 
+# This connects to the database "pfm" using psql
 ActiveRecord::Base.establish_connection(
   :adapter => "postgresql", 
   :host => "localhost",
   :database => "pfm"
   )
 
-# binding.pry
+# This is the main body of the program
 class Run
 	def initialize
 		puts ""
@@ -64,14 +67,6 @@ class Run
 			end
 		end 
 	end
-
-# account1 = Account.create(name: 'Gwens savings', balance: 0)
-
-# account1.transactions.create(date: '31 Mar 15', category: 'Food', payee: 'Shake Shack', amount: 10, kind: 'debit')
-# account1.transactions.create(date: '30 Mar 15', category: 'Fun', payee: 'Go Karts', amount: 20, kind: 'debit')
-# account1.transactions.create(date: '1 Apr 15', category: 'Car', payee: 'Exxon', amount: 20, kind: 'debit')
-# account1.transactions.create(date: '1 Apr 15', category: 'PAYCHECK', payee: 'job', amount: 100, kind: 'credit')
-
 end
 
 Run.new

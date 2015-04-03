@@ -28,6 +28,8 @@ def add_transaction (account)
 
 
 	Transaction.create(account_id: account.id, date: date, category: choose_category, payee: payee, amount: amount, kind: kind)
+	
+# This is the information for valiations, if I could get them to work properly
 	# if new_transaction.valid?
 	# 	new_transaction.save
 	# else
@@ -36,6 +38,7 @@ def add_transaction (account)
 	# 		Transaction.add_transaction
 	# 	end
 	# end
+	
 	update_balance(account)
 	puts "You have successfully added a transaction!"
 end
