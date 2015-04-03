@@ -1,14 +1,7 @@
 class Transaction < ActiveRecord::Base
 	belongs_to :accounts
-	validates :account, presence: true
+	#validates :account, presence: true
 end
-
-# def kind
-# 	credits = Transaction.find_by(kind: credit)
-# 	credits.amount.sum
-# 	debits = Transaction.find_by(kind: debit)
-# 	debits.amount.sum
-# end
 
 def add_transaction (account)
 	puts "Please provide transaction details:"
@@ -32,6 +25,7 @@ def add_transaction (account)
 	puts ""
 	puts "Debit or Credit?"
 	kind = gets.chomp.downcase
+
 
 	Transaction.create(account_id: account.id, date: date, category: choose_category, payee: payee, amount: amount, kind: kind)
 	# if new_transaction.valid?

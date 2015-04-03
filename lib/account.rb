@@ -1,16 +1,7 @@
-# require 'active_record'
-# #require 'pry'
-
-# ActiveRecord::Base.establish_connection(
-#   :adapter => "postgresql", 
-#   :host => "localhost",
-#   :database => "pfm"
-#   )
-
 class Account < ActiveRecord::Base
 	has_many :transactions, dependent: :destroy
-	validates :name, :balance, presence: true
-	validates :balance, numericality: true
+	#validates :name, :balance, presence: true
+	#validates :balance, numericality: true
 end
 
 # **HI NEW USER!**
