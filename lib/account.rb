@@ -8,34 +8,36 @@
 #   )
 
 class Account < ActiveRecord::Base
-
-	has_one :name
-	has_one :balance
-	has_many :transactions
-	# validates :name, balance, presence: true
+	has_many :transactions, dependent: :destroy
+	validates :name, :balance, presence: true
+	validates :balance, numericality: true
 end
 
+# **HI NEW USER!**
+# This is the code to un-comment out when starting the program for the first time:
+	# class CreateAccount < ActiveRecord::Migration
+	# 	def initialize
+	# 		create_table :accounts do |column|
+	# 	 		column.string :name
+	# 	 		column.decimal :balance
+	# 	 	end
 
-class CreateAccount < ActiveRecord::Migration
-	def initialize
-		create_table :accounts do |column|
-			column.string :name
-			column.decimal :balance
-		end
-
-		create_table :transactions do |column|
-			column.string :account
-			column.string :date
-			column.string :category
-			column.string :payee
-			column.decimal :amount
-			column.string :type
-		end
-	end
+	# 		create_table :transactions do |column|
+	# 			column.integer :account_id
+	# 			column.string :date
+	# 			column.string :category
+	# 			column.string :payee
+	# 			column.decimal :amount
+	# 			column.string :kind
+	# 		end
+	# 	end
+	# end
+def list_accounts
+	tp Account.all
 end
 
-def view_all
-	tp Transactions.all, :account, :date, :category, :payee, :amount, :type
+def view_all (account)
+	tp account.transactions.all
 end
 
 def list_categories
@@ -44,33 +46,65 @@ def list_categories
 	puts "3. Car"
 	puts "4. Living"
 	puts "5. Clothes"
-	cat_choice = gets.chomp
-		case 
+end
+
+def choose_category
+	cat_choice = gets.chomp.to_i
+		case cat_choice
 			when 1
-				cat_choice = "Food"
+				return "Food"
 			when 2
-				cat_choice = "Fun"
+				return "Fun"
 			when 3
-				cat_choice = "Car"
+				return "Car"
 			when 4
-				cat_choice = "Living"
+				return "Living"
 			when 5
-				cat_choice = "Clothes"
-			else
-				puts "Please enter a number choice 1-5."
+				return "Clothes"
+			# else
+			# 	puts "Please enter a number choice 1-5."
 			end
 end
 
-def view_category
+def view_category(account)
 	puts "Which category would you like to view?"
 	list_categories
-	tp Transactions.all.category{cat_choice}
+
+	category_choice = choose_category
+	cat_transactions = account.transactions.where(category: category_choice)
+
+	if cat_transactions.count == 0
+		puts "There are no transactions in that category, in the account #{account.name}"
+	else
+		tp account.transactions.where(category: category_choice)
+	end
+	update_balance(account)
 end
 
-def balance
-	credits = Transactions.type[credit]
+def balance (account)
+	credits = account.transactions.where(kind: "credit").map do |credit| 
+		credit.amount.to_f
+	end
+
+	debits = account.transactions.where(kind: "debit").map do |debit|
+		debit.amount.to_f
+	end
+
 	total_credits = credits.sum
-	debits = Transactions.type[debit]
 	total_debits = debits.sum
-	balance = credits - debits
+	current_balance = total_credits.to_f - total_debits.to_f
+
+	puts ""
+	puts "The account balance is: $ #{current_balance}"
+	return current_balance
+end
+
+def update_balance (account)
+	# Calculate the new balance
+	new_balance = account.balance.to_f + balance(account)
+	account.update(balance: new_balance)
+	# Update the balance in the account
+	account.update(balance: new_balance)
+	puts "This is the new account balance: #{new_balance}"
+
 end
